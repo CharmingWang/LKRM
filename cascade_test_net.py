@@ -80,10 +80,10 @@ def parse_args():
                         default=1, type=int)
     parser.add_argument('--checkepoch', dest='checkepoch',
                         help='checkepoch to load network',
-                        default=1, type=int)
+                        default=12, type=int)
     parser.add_argument('--checkpoint', dest='checkpoint',
                         help='checkpoint to load network',
-                        default=10021, type=int)
+                        default=2325, type=int)
     parser.add_argument('--vis', dest='vis',
                         help='visualization mode',
                         action='store_true')
@@ -98,7 +98,7 @@ def parse_args():
                         default='100', type=str)
     parser.add_argument('--model_dir', dest='model_dir',
                         help='Define the mode of cascade',
-                        default='0.0017_8_0.1_000000', type=str)
+                        default='0.0018_9_0.1_023010', type=str)
     parser.add_argument('--test_mode', dest='test_mode',
                         help='Define the mode of cascade',
                         default='voc', type=str)
@@ -111,8 +111,7 @@ momentum = cfg.TRAIN.MOMENTUM
 weight_decay = cfg.TRAIN.WEIGHT_DECAY
 
 if __name__ == '__main__':
-    for i in range(5,15):
-        i = 2
+    for i in range(12,13):
         epoch = i
         args = parse_args()
 
@@ -150,6 +149,8 @@ if __name__ == '__main__':
             args.imdbval_name = "voc_2007_test"
             args.set_cfgs = ['FPN_ANCHOR_SCALES', '[32, 64, 128, 256, 512]', 'FPN_FEAT_STRIDES', '[4, 8, 16, 32, 64]',
                              'MAX_NUM_GT_BOXES', '20']
+                             
+                             
             cls_r_prob = pickle.load(open('data/graph/VOC_graph_r.pkl', 'rb'))
             cls_r_prob = np.float32(cls_r_prob)
             cls_a_prob = pickle.load(open('data/graph/VOC_graph_a.pkl', 'rb'))
@@ -161,7 +162,7 @@ if __name__ == '__main__':
             cls_s_d_prob = pickle.load(open('data/graph/vg_graph_s_d.pkl', 'rb'))
             cls_s_d_prob = np.float32(cls_s_d_prob)
             cls_s_i_prob = pickle.load(open('data/graph/vg_graph_s_i.pkl', 'rb'))
-            cls_s_i_prob = np.float32(cls_s_i_prob)
+            
         elif args.dataset == "pascal_voc_cap":
             args.imdb_name = "cap_voc_2007_train"
             args.imdbval_name = "cap_voc_2007_test"
@@ -264,7 +265,7 @@ if __name__ == '__main__':
 
 
         vis = args.vis
-        # vis = 0
+        vis = 1
         if vis:
             thresh = 0.05
         else:
@@ -407,8 +408,8 @@ if __name__ == '__main__':
         # if args.test_mode == 'voc':
         #     imdb.voc_evaluate_detections(all_boxes, output_dir)
 
-        imdb.vg_evaluate_detections(all_boxes, output_dir, args.model_dir.split('_')[-1], epoch)
-        imdb.voc_evaluate_detections(all_boxes, output_dir)
+        #imdb.vg_evaluate_detections(all_boxes, output_dir, args.model_dir.split('_')[-1], epoch)
+        #imdb.voc_evaluate_detections(all_boxes, output_dir)
 
         end = time.time()
         print("test time: %0.4fs" % (end - start))
