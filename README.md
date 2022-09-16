@@ -1,69 +1,42 @@
-# Pytorch 1.0 Implementation of Faster R-CNN + FPN + Cascade Faster R-CNN
-This repo supports Faster R-CNN, FPN and Cascade Faster R-CNN based on pyTorch 1.0. Additionally deformable convolutional layer is also support! 
+# LKRM
+This repo is the implementation of the paper ("Latent Knowledge Reasoning Incorporated for Multi-fitting Decoupling Detection on Electric Transmission Line"). The code is based on PyTorch and large part code is reference from [faster-rcnn](https://github.com/diamour/cascade-rcnn-fpn-faster_rcnn-pytorch1.0).
 
-## Train 
+## Requirements
++ Python3.8
++ Python packages
+  + PyTorch >= 1.0
+  + Torchvision >= 0.9.0
+  + opencv-python
+  + scipy
+  + matplotlib
+  + numpy
+  
 
-## Train Faster R-CNN on VOC dataset and pretrained resnet101.pth model
-Before training, set the right directory to save and load the trained models. Change the arguments "save_dir" and "load_dir" in trainval_net.py and test_net.py to adapt to your environment.
+## Demo
+After successfully completing requirements, you can be ready to run the demo.
 
++ **Download** the cascade_fpn_1_12_2325.pth which finally use in the paper(LKRM) from [Weights](https://pan.baidu.com/s/16dILd0w_NenQlgVCnml89g) (extract code:idfv)
+
++ **Download**  the pretrained weights(pascal_voc_cascade.pth and resnet101_caffe.pth) from [Weights](https://pan.baidu.com/s/16dILd0w_NenQlgVCnml89g) (extract code:idfv)
+
++ **Put**  cascade_fpn_1_12_2325.pth into the: 
+```sh
+{repo_root}/models/res101/pascal_voc/0.0018_9_0.1_023010/
 ```
-python python train_faster_rcnn.py --dataset pascal_voc--net res101 --bs 1 --nw 1 --lr 0.01 --lr_decay_step 8 --cuda
++ **Put**  pascal_voc_cascade.pth into the: 
+```sh
+{repo_root}/models/
+```
++ **Put**  resnet101_caffe.pth into the: 
+```sh
+{repo_root}/data/pretrained_model/
+```
++ **Using** this code to see the fitting detection results in demo images:
+```sh
+python cascade_test_net.py --cuda
 ```
 
-Change dataset to "coco" or 'vg' if you want to train on COCO or Visual Genome.
 
-## Train FPN on VOC dataset and pretrained resnet101.pth model
-Before training, set the right directory to save and load the trained models. Change the arguments "save_dir" and "load_dir" in trainval_net.py and test_net.py to adapt to your environment.
-
-The learning rate should be lower than Faster RCNN
-
-```
-python python train_fpn.py --dataset pascal_voc--net res101 --bs 1 --nw 1 --lr 0.001 --lr_decay_step 8 --cuda
-```
-
-Change dataset to "coco" or 'vg' if you want to train on COCO or Visual Genome.
-
-## Train Cascade RCNN on VOC dataset and pretrained resnet101.pth model
-Before training, set the right directory to save and load the trained models. Change the arguments "save_dir" and "load_dir" in trainval_net.py and test_net.py to adapt to your environment.
-
-The learning rate should be lower than Faster RCNN
-
-```
-python python train_cascade_fpn.py --dataset pascal_voc--net res101 --bs 1 --nw 1 --lr 0.001 --lr_decay_step 8 --cuda
-```
-
-Change dataset to "coco" or 'vg' if you want to train on COCO or Visual Genome.
-
-## Test Faster R-CNN and generate json outputs
-
-If you want to evlauate the detection performance of a pre-trained res101 model on pascal_voc test set, simply run
-```
-python json_test_faster_rcnn.py --dataset pascal_voc --net res101 \
-                   --checksession $SESSION --checkepoch $EPOCH --checkpoint $CHECKPOINT \
-                   --cuda
-```
-Specify the specific model session, chechepoch and checkpoint, e.g., SESSION=1, EPOCH=6, CHECKPOINT=416.
-
-## Test FPN and generate json outputs
-
-If you want to evlauate the detection performance of a pre-trained res101 model on pascal_voc test set, simply run
-```
-python json_test_fpn.py --dataset pascal_voc --net res101 \
-                   --checksession $SESSION --checkepoch $EPOCH --checkpoint $CHECKPOINT \
-                   --cuda
-```
-Specify the specific model session, chechepoch and checkpoint, e.g., SESSION=1, EPOCH=6, CHECKPOINT=416.
-
-
-## Test Cascade R-CNN and generate json outputs
-
-If you want to evlauate the detection performance of a pre-trained res101 model on pascal_voc test set, simply run
-```
-python json_test_cascade_fpn.py --dataset pascal_voc --net res101 \
-                   --checksession $SESSION --checkepoch $EPOCH --checkpoint $CHECKPOINT \
-                   --cuda
-```
-Specify the specific model session, chechepoch and checkpoint, e.g., SESSION=1, EPOCH=6, CHECKPOINT=416.
 
 ## Citation
 
