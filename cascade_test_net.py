@@ -80,7 +80,7 @@ def parse_args():
                         default=1, type=int)
     parser.add_argument('--checkepoch', dest='checkepoch',
                         help='checkepoch to load network',
-                        default=12, type=int)
+                        default=7, type=int)
     parser.add_argument('--checkpoint', dest='checkpoint',
                         help='checkpoint to load network',
                         default=2325, type=int)
@@ -111,7 +111,7 @@ momentum = cfg.TRAIN.MOMENTUM
 weight_decay = cfg.TRAIN.WEIGHT_DECAY
 
 if __name__ == '__main__':
-    for i in range(12,13):
+    for i in range(7,8):
         epoch = i
         args = parse_args()
 

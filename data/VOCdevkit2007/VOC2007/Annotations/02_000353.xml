@@ -1,0 +1,98 @@
+<annotation>
+	<folder>JPEGImages</folder>
+	<filename>02_000353.JPG</filename>
+	<path>C:\Users\zz\Desktop\李延旭\JPEGImages\02_000353.JPG</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>4288</width>
+		<height>2848</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>shockproof hammer</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>9</xmin>
+			<ymin>1996</ymin>
+			<xmax>609</xmax>
+			<ymax>2292</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>shockproof hammer</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>3242</xmin>
+			<ymin>2178</ymin>
+			<xmax>3846</xmax>
+			<ymax>2478</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>parallel groove clamp</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>394</xmin>
+			<ymin>1998</ymin>
+			<xmax>563</xmax>
+			<ymax>2131</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>pre-twisted suspension clamp</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1359</xmin>
+			<ymin>1743</ymin>
+			<xmax>1859</xmax>
+			<ymax>2064</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>pre-twisted suspension clamp</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>2096</xmin>
+			<ymin>1791</ymin>
+			<xmax>2573</xmax>
+			<ymax>2087</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>yoke plate</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1614</xmin>
+			<ymin>1451</ymin>
+			<xmax>2418</xmax>
+			<ymax>1709</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>u-type hanging ring</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1961</xmin>
+			<ymin>1291</ymin>
+			<xmax>2064</xmax>
+			<ymax>1545</ymax>
+		</bndbox>
+	</object>
+</annotation>

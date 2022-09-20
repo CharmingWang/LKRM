@@ -264,6 +264,10 @@ class _FPN(nn.Module):
         # self.RCNN_roi_pool = ROIPool(cfg.POOLING_SIZE, cfg.POOLING_SIZE, 1.0/16.0)
         # self.RCNN_roi_align = ROIAlignAvg(cfg.POOLING_SIZE, cfg.POOLING_SIZE, 1.0/16.0)
         self.grid_size = cfg.POOLING_SIZE * 2 if cfg.CROP_RESIZE_WITH_MAX_POOL else cfg.POOLING_SIZE
+        self.bbox_conv1 = nn.Conv2d(1024, 1024, 3, 1, 1)
+        self.relu = nn.ReLU(inplace=True)
+        self.bbox_conv2 = nn.Conv2d(1024, 2048, 3, 1, 1)
+        self.avgpooling = nn.AvgPool2d(5,3)
         self.cls_fully_connect = nn.Linear(2048, 2048)
         self.bbox_fully_connect = nn.Linear(2048, 2048)
         self.spat_bbox_fully_connect = nn.Linear(2048 + (int(self.modules_exist[2] > 0)) * self.modules_size, 2048 + (int(self.modules_exist[2] > 0)) * self.modules_size)
@@ -670,6 +674,15 @@ class _FPN(nn.Module):
                     roi_pool_feat = self.RCNN_roi_align(base_feat, sc_rois.view(-1, 5), scale)
                     sc_pooled_feat2 = self._head_to_tail_2nd(roi_pool_feat)
                     pooled_feat2 = sc_pooled_feat2[1:, :]
+                    spat_roi_pool_feat_1 = self.bbox_conv1(roi_pool_feat)
+                    spat_roi_pool_feat_1 = self.relu(spat_roi_pool_feat_1)
+                    spat_roi_pool_feat_2 = self.bbox_conv2(spat_roi_pool_feat_1)
+                    spat_roi_pool_feat_2 = self.relu(spat_roi_pool_feat_2)
+                    spat_roi_pool_feat_avg = self.avgpooling(spat_roi_pool_feat_2)
+                    spat_roi_pool_feat_avg_pro = torch.squeeze(spat_roi_pool_feat_avg)
+                    
+                    
+                    
                 else:
                     roi_pool_feat = self.RCNN_roi_align(base_feat, rois.view(-1, 5), scale)
                     pooled_feat2 = self._head_to_tail_2nd(roi_pool_feat)
@@ -682,7 +695,7 @@ class _FPN(nn.Module):
             # cls_pool_feat = F.relu(self.fc7(cls_pool_feat))
             # cls_pool_feat = F.relu(self.fc8(cls_pool_feat))
             cls_pooled_feat = pooled_feat2
-            bbox_pooled_feat = pooled_feat2
+            bbox_pooled_feat = spat_roi_pool_feat_avg_pro[1:,:]
             pooled_feat_023 = pooled_feat2.clone()
             scence_lable = 0
             if self.modules_exist[1] == 2:
